@@ -1,68 +1,48 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        markpad
-      </h1>
-      <h2 class="subtitle">
-        Frontend of a notepad in the web with markdown
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+    <div class="search">
+      <h1 class="title">Markpad</h1>
+      <input
+        v-model="document"
+        type="text"
+        placeholder="Access your document"
+      />
+      <button @click="goToDocument">Search</button>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  components: {},
+  data() {
+    return {
+      document: ''
+    }
+  },
+  methods: {
+    goToDocument() {
+      console.log(`Go to document ${this.document}`)
+    }
   }
 }
 </script>
 
 <style>
 .container {
-  margin: 0 auto;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
   align-items: center;
-  text-align: center;
 }
-
+.search {
+  grid-row: 2/2;
+  grid-column: 2/2;
+}
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  text-align: center;
+  margin: 30px 10px;
 }
 </style>
