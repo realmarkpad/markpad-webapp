@@ -6,6 +6,7 @@
         v-model="document"
         type="text"
         placeholder="Access your document"
+        @keydown.enter="goToDocument"
       />
       <button @click="goToDocument">Search</button>
     </div>
@@ -22,7 +23,7 @@ export default {
   },
   methods: {
     goToDocument() {
-      console.log(`Go to document ${this.document}`)
+      window.location.href = this.document
     }
   }
 }
