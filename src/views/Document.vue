@@ -1,15 +1,14 @@
 <template>
-  <div class="container">
-    <div class="editor">
+    <div class="container">
       <vue-simplemde
         v-model="content"
         ref="markdownEditor"
         :highlight="true"
         preview-class="markdown-body"
         :previewRender="false"
+        :configs="config"
       />
     </div>
-  </div>
 </template>
 
 <script>
@@ -19,8 +18,20 @@ export default {
   nome: "document",
   data() {
     return {
-      content: "# OI"
+      content: "# OI",
+      config: {
+        toolbar: [
+          "bold", "italic", "heading", "|", 
+          "quote", "unordered-list", "ordered-list", "|",
+          "link", "image", "|",
+          "guide"
+        ]
+      }
     };
+  },
+  mounted() {
+    this.simpleMDE.toggleFullScreen();
+    this.simpleMDE.toggleSideBySide();
   },
   computed: {
     documentName() {
@@ -30,6 +41,9 @@ export default {
         return path.substring(1, path.length - 1);
       }
       return this.$route.fullPath.substring(1);
+    },
+    simpleMDE() {
+      return this.$refs.markdownEditor.simplemde;
     }
   },
   components: { VueSimplemde }
@@ -43,20 +57,8 @@ export default {
 
 .container {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 0.1fr 1fr;
+  display: block;
   justify-items: center;
   align-items: center;
-
-  .title {
-    grid-column: 1 / 3;
-  }
-  .editor {
-    grid-column: 1 / 3;
-  }
-}
-.markdown-editor .CodeMirror {
-  height: 100vh;
 }
 </style>
