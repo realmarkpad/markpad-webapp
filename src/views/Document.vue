@@ -1,14 +1,14 @@
 <template>
-    <div class="container">
-      <vue-simplemde
-        v-model="content"
-        ref="markdownEditor"
-        :highlight="true"
-        preview-class="markdown-body"
-        :previewRender="false"
-        :configs="config"
-      />
-    </div>
+  <div class="container">
+    <vue-simplemde
+      v-model="content"
+      ref="markdownEditor"
+      :highlight="true"
+      preview-class="markdown-body"
+      :previewRender="false"
+      :configs="config"
+    />
+  </div>
 </template>
 
 <script>
@@ -18,20 +18,17 @@ export default {
   nome: "document",
   data() {
     return {
-      content: "# OI",
-      config: {
-        toolbar: [
-          "bold", "italic", "heading", "|", 
-          "quote", "unordered-list", "ordered-list", "|",
-          "link", "image", "|",
-          "guide"
-        ]
-      }
+      content: "",
+      config: {}
     };
   },
   mounted() {
     this.simpleMDE.toggleFullScreen();
     this.simpleMDE.toggleSideBySide();
+
+    // Remove fullscreen button
+    const removeElements = elms => elms.forEach(el => el.remove());
+    removeElements(document.querySelectorAll(".fa.fa-arrows-alt"));
   },
   computed: {
     documentName() {
