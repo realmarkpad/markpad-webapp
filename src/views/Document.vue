@@ -25,16 +25,8 @@ export default {
     };
   },
   async created() {
-    try {
-      const res = await documentApi.get(this.documentName);
-      this.content = res.data.content;
-      this.child = res.data.child;
-    } catch (e) {
-      const res = e.response;
-      if (res.status === 404) {
-        await documentApi.create({ path: this.documentName });
-      }
-    }
+    const path = this.cleanPath(this.$route.fullPath);
+    await this.loadDocument(path);
   },
   mounted() {
     this.simpleMDE.toggleFullScreen();
@@ -45,16 +37,37 @@ export default {
     removeElements(document.querySelectorAll(".fa.fa-arrows-alt"));
   },
   computed: {
-    documentName() {
-      const path = this.$route.fullPath;
+    simpleMDE() {
+      return this.$refs.markdownEditor.simplemde;
+    }
+  },
+  methods: {
+    async loadDocument(name) {
+      try {
+        const res = await documentApi.get(name);
+        this.content = res.data.content;
+        this.child = res.data.child;
+      } catch (e) {
+        const res = e.response;
+        if (res.status === 404) {
+          await documentApi.create({ path: name });
+          this.content = "";
+          this.child = [];
+        }
+      }
+    },
+    cleanPath(path) {
       const lastChar = path[path.length - 1];
       if (lastChar === "/") {
         return path.substring(1, path.length - 1);
       }
       return this.$route.fullPath.substring(1);
-    },
-    simpleMDE() {
-      return this.$refs.markdownEditor.simplemde;
+    }
+  },
+  watch: {
+    $route: async function(to) {
+      const path = this.cleanPath(to.path);
+      await this.loadDocument(path);
     }
   },
   components: { VueSimplemde }
