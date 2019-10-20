@@ -33,8 +33,6 @@ export default {
       const res = e.response;
       if (res.status === 404) {
         await documentApi.create({ path: this.documentName });
-        const res = await documentApi.get(this.documentName);
-        this.child = res.data.child;
       }
     }
   },
