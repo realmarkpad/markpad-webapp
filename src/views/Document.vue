@@ -13,14 +13,30 @@
 
 <script>
 import VueSimplemde from "vue-simplemde";
+import { documentApi } from "../services";
 
 export default {
   nome: "document",
   data() {
     return {
       content: "",
+      child: [],
       config: {}
     };
+  },
+  async created() {
+    try {
+      const res = await documentApi.get(this.documentName);
+      this.content = res.data.content;
+      this.child = res.data.child;
+    } catch (e) {
+      const res = e.response;
+      if (res.status === 404) {
+        await documentApi.create({ path: this.documentName });
+        const res = await documentApi.get(this.documentName);
+        this.child = res.data.child;
+      }
+    }
   },
   mounted() {
     this.simpleMDE.toggleFullScreen();
