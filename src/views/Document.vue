@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       content: "",
+      last_edited: new Date(),
       child: [],
       config: {}
     };
@@ -27,6 +28,14 @@ export default {
   async created() {
     const path = this.cleanPath(this.$route.fullPath);
     await this.loadDocument(path);
+
+    setInterval(async () => {
+      const documentPath = this.cleanPath(this.$route.fullPath);
+      await documentApi.update({
+        path: documentPath,
+        content: this.content
+      })
+    },1000);
   },
   mounted() {
     this.simpleMDE.toggleFullScreen();
