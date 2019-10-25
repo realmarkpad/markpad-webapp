@@ -22,20 +22,15 @@ export default {
       content: "",
       last_edited: new Date(),
       child: [],
-      config: {}
+      config: {},
+      setIntervalId: null
     };
   },
   async created() {
     const path = this.cleanPath(this.$route.fullPath);
     await this.loadDocument(path);
 
-    setInterval(async () => {
-      const documentPath = this.cleanPath(this.$route.fullPath);
-      await documentApi.update({
-        path: documentPath,
-        content: this.content
-      })
-    },1000);
+    this.setIntervalId = setInterval(this.checkBack, 1000);
   },
   mounted() {
     this.simpleMDE.toggleFullScreen();
@@ -71,12 +66,21 @@ export default {
         return path.substring(1, path.length - 1);
       }
       return this.$route.fullPath.substring(1);
+    },
+    async checkBack() {
+      const documentPath = this.cleanPath(this.$route.fullPath);
+      await documentApi.update({
+        path: documentPath,
+        content: this.content
+      });
     }
   },
   watch: {
     $route: async function(to) {
+      clearInterval(this.setIntervalId);
       const path = this.cleanPath(to.path);
       await this.loadDocument(path);
+      this.setIntervalId = setInterval(this.checkBack, 1000);
     }
   },
   components: { VueSimplemde }
