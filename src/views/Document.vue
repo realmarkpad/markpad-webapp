@@ -69,6 +69,8 @@ export default {
     },
     async checkBack() {
       const documentPath = this.cleanPath(this.$route.fullPath);
+      const res = await documentApi.get_last_updated(documentPath);
+      console.log(res.data);
       await documentApi.update({
         path: documentPath,
         content: this.content
