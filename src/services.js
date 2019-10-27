@@ -11,5 +11,6 @@ export const documentApi = {
   get: async filePath => await api.get(`/document/${filePath}`),
   update: async doc => await api.put("/document/", doc),
   create: async doc => await api.post("/document/", doc),
-  delete: async doc => await api.delete("/document/", doc)
+  delete: async doc => await api.delete("/document/", doc),
+  get_last_updated: async filePath => await api.get(`/get_last_updated/${filePath}`)
 };
