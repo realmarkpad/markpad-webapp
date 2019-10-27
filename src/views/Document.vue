@@ -54,6 +54,7 @@ export default {
         this.content = res.data.content;
         this.child = res.data.child;
         this.lastUpdated = moment.utc(res.data.last_updated);
+        this.lastEditionToContent = moment.utc(res.data.last_updated);
       } catch (e) {
         const res = e.response;
         if (res.status === 404) {
@@ -61,6 +62,7 @@ export default {
           this.content = "";
           this.child = [];
           this.lastUpdated = moment.utc(res.data.created_at);
+          this.lastEditionToContent = moment.utc(res.data.created_at);
         }
       }
     },
