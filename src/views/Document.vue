@@ -14,16 +14,18 @@
 <script>
 import VueSimplemde from "vue-simplemde";
 import { documentApi } from "../services";
+import moment from "moment";
 
 export default {
   nome: "document",
   data() {
     return {
       content: "",
-      last_edited: new Date(),
+      lastUpdated: null,
       child: [],
       config: {},
-      setIntervalId: null
+      setIntervalId: null,
+      lastEditionToContent: null
     };
   },
   async created() {
@@ -51,12 +53,14 @@ export default {
         const res = await documentApi.get(name);
         this.content = res.data.content;
         this.child = res.data.child;
+        this.lastUpdated = moment.utc(res.data.last_updated);
       } catch (e) {
         const res = e.response;
         if (res.status === 404) {
-          await documentApi.create({ path: name });
+          const res = await documentApi.create({ path: name });
           this.content = "";
           this.child = [];
+          this.lastUpdated = moment.utc(res.data.created_at);
         }
       }
     },
@@ -70,11 +74,18 @@ export default {
     async checkBack() {
       const documentPath = this.cleanPath(this.$route.fullPath);
       const res = await documentApi.get_last_updated(documentPath);
-      console.log(res.data);
-      await documentApi.update({
-        path: documentPath,
-        content: this.content
-      });
+      const lastUpdatedServer = moment.utc(res.data.last_updated);
+      if (this.lastUpdated.isSame(lastUpdatedServer)) {
+        if (this.lastEditionToContent.isAfter(lastUpdatedServer)) {
+          const res = await documentApi.update({
+            path: documentPath,
+            content: this.content
+          });
+          this.lastUpdated = moment.utc(res.data.last_updated);
+        }
+      } else {
+        await this.loadDocument(documentPath);
+      }
     }
   },
   watch: {
@@ -83,6 +94,9 @@ export default {
       const path = this.cleanPath(to.path);
       await this.loadDocument(path);
       this.setIntervalId = setInterval(this.checkBack, 1000);
+    },
+    content: function() {
+      this.lastEditionToContent = moment.utc();
     }
   },
   components: { VueSimplemde }
