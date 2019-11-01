@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <sidebar-menu
+      :menu="menu"
+      :collapsed="true"
+      :rtl="true"
+    >
+      <span slot="toggle-icon">
+        <i class="fa fa-arrows-h"></i>
+      </span>
+    </sidebar-menu>
     <vue-simplemde
       v-model="content"
       ref="markdownEditor"
@@ -13,6 +22,7 @@
 
 <script>
 import VueSimplemde from "vue-simplemde";
+import { SidebarMenu } from "vue-sidebar-menu";
 import { documentApi } from "../services";
 import moment from "moment";
 
@@ -25,7 +35,14 @@ export default {
       child: [],
       config: {},
       setIntervalId: null,
-      lastEditionToContent: null
+      lastEditionToContent: null,
+      menu: [
+        {
+          header: true,
+          title: 'Documentos',
+          hiddenOnCollapse: true
+        }
+      ]
     };
   },
   async created() {
@@ -99,13 +116,32 @@ export default {
     },
     content: function() {
       this.lastEditionToContent = moment.utc();
+    },
+    child: function(to) {
+      const path = this.cleanPath(this.$route.fullPath);
+      const childItems = to.map(child => {
+        return {
+          href: { path: `/${path}/${child}` },
+          title: child,
+          icon: "fa fa-file"
+        }
+      })
+      this.menu = [
+        {
+          header: true,
+          title: 'Documentos',
+          hiddenOnCollapse: true
+        },
+        ...childItems
+      ]
     }
   },
-  components: { VueSimplemde }
+  components: { VueSimplemde, SidebarMenu }
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+@import "~vue-sidebar-menu/src/scss/vue-sidebar-menu.scss";
 @import "~simplemde/dist/simplemde.min.css";
 @import "~highlight.js/styles/atom-one-dark.css";
 @import "~github-markdown-css";

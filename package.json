@@ -15,6 +15,7 @@
     "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
+    "vue-sidebar-menu": "^4.4.1",
     "vue-simplemde": "^1.0.0"
   },
   "devDependencies": {
