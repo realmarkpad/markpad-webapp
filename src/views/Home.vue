@@ -68,7 +68,7 @@ export default {
       height: 312px;
     }
     .input {
-      margin: 0 auto;
+      margin-right: 35px;
       display: inline;
 
       .search-input {
