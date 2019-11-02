@@ -1,7 +1,13 @@
-# Markpad
+<p align="center">
+  <a href="https://markpad.com.br" target="_blank" rel="noopener noreferrer">
+    <img alt="Logo" src="src/assets/logo.jpg" width="600px">
+  </a>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/935c1880-80bc-4e14-8b33-7f18cb80ff4a/deploy-status)](https://app.netlify.com/sites/markpadd/deploys)
+<p align="center">
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT Licence"></a>
+  <a href="https://app.netlify.com/sites/markpadd/deploys"><img src="https://api.netlify.com/api/v1/badges/935c1880-80bc-4e14-8b33-7f18cb80ff4a/deploy-status" alt="Netlify Status"></a>
+</p>
 
 Frontend of a notepad in the web with markdown
 

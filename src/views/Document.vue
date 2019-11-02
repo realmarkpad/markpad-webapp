@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <sidebar-menu
-      :menu="menu"
-      :collapsed="true"
-      :rtl="true"
-    >
+    <sidebar-menu :menu="menu" :collapsed="true" :rtl="true">
       <span slot="toggle-icon">
         <i class="fa fa-arrows-h"></i>
       </span>
@@ -39,7 +35,7 @@ export default {
       menu: [
         {
           header: true,
-          title: 'Documentos',
+          title: "Documentos",
           hiddenOnCollapse: true
         }
       ]
@@ -49,7 +45,7 @@ export default {
     const path = this.cleanPath(this.$route.fullPath);
     await this.loadDocument(path);
 
-    this.setIntervalId = setInterval(this.checkBack, 1000);
+    this.setIntervalId = setInterval(this.checkBack, 5000);
   },
   mounted() {
     this.simpleMDE.toggleFullScreen();
@@ -112,7 +108,7 @@ export default {
       clearInterval(this.setIntervalId);
       const path = this.cleanPath(to.path);
       await this.loadDocument(path);
-      this.setIntervalId = setInterval(this.checkBack, 1000);
+      this.setIntervalId = setInterval(this.checkBack, 5000);
     },
     content: function() {
       this.lastEditionToContent = moment.utc();
@@ -124,16 +120,16 @@ export default {
           href: { path: `/${path}/${child}` },
           title: child,
           icon: "fa fa-file"
-        }
-      })
+        };
+      });
       this.menu = [
         {
           header: true,
-          title: 'Documentos',
+          title: "Documentos",
           hiddenOnCollapse: true
         },
         ...childItems
-      ]
+      ];
     }
   },
   components: { VueSimplemde, SidebarMenu }
