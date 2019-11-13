@@ -64,8 +64,8 @@ export default {
 
     .logo {
       margin: 0 auto;
-      width: 100%;
-      height: 100%;
+      width: 600px;
+      height: 337px;
     }
     .input {
       margin-right: 35px;
