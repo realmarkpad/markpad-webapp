@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="search">
-      <img class="logo" src="../assets/logo.jpg" />
+      <img class="logo" src="../assets/logo.png" />
       <div class="input">
         <input
           class="search-input"
