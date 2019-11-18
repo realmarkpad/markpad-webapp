@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <sidebar-menu :menu="menu" :collapsed="true" :rtl="true">
+    <sidebar-menu :menu="menu" :collapsed="true">
       <span slot="toggle-icon">
         <i class="fa fa-arrows-h"></i>
       </span>
@@ -54,6 +54,7 @@ export default {
     // Remove fullscreen button
     const removeElements = elms => elms.forEach(el => el.remove());
     removeElements(document.querySelectorAll(".fa.fa-arrows-alt"));
+    removeElements(document.querySelectorAll(".fa.fa-columns"));
   },
   computed: {
     simpleMDE() {
@@ -147,5 +148,14 @@ export default {
   display: block;
   justify-items: center;
   align-items: center;
+}
+
+.editor-toolbar.fullscreen {
+  width: 96%;
+  left: 50px;
+}
+.CodeMirror-sided {
+  width: calc(50% - 50px) !important;
+  left: 50px;
 }
 </style>
