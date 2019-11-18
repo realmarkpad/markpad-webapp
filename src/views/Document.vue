@@ -29,7 +29,7 @@ export default {
       content: "",
       lastUpdated: null,
       child: [],
-      config: {},
+      config: { spellChecker: false },
       setIntervalId: null,
       lastEditionToContent: null,
       menu: [
