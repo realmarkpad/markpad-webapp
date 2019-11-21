@@ -55,6 +55,8 @@ export default {
     const removeElements = elms => elms.forEach(el => el.remove());
     removeElements(document.querySelectorAll(".fa.fa-arrows-alt"));
     removeElements(document.querySelectorAll(".fa.fa-columns"));
+    removeElements(document.querySelectorAll(".fa.fa-eye"));
+    removeElements(document.querySelectorAll(".separator"));
   },
   computed: {
     simpleMDE() {
