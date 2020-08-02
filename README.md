@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://markpad.com.br" target="_blank" rel="noopener noreferrer">
-    <img alt="Logo" src="src/assets/cat-logo.png" width="300px">
+    <img alt="Logo" src="src/assets/cat-logo.png" width="200px">
   </a>
 </p>
 
