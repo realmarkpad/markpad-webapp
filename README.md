@@ -1,15 +1,16 @@
-<p align="center">
+<p align="left">
   <a href="https://markpad.com.br" target="_blank" rel="noopener noreferrer">
-    <img alt="Logo" src="src/assets/cat-logo.png" width="200px">
+    <img alt="Logo" src="src/assets/cat-logo.png" width="600px">
   </a>
 </p>
 
-<p align="center">
+Webapp for markpad, a notepad in the web with markdown.
+
+<p align="left">
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT Licence"></a>
-  <!-- <a href="https://app.netlify.com/sites/markpadd/deploys"><img src="https://api.netlify.com/api/v1/badges/935c1880-80bc-4e14-8b33-7f18cb80ff4a/deploy-status" alt="Netlify Status"></a> -->
 </p>
 
-Webapp for markpad, a notepad in the web with markdown.
+
 
 ## Project setup
 
